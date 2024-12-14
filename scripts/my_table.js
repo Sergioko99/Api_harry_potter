@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 import { ShowUser } from "./show";
 
 customElements.define('show-user', ShowUser);
@@ -36,17 +36,54 @@ export class MyTable extends LitElement{
     }
     inputText(e){
         this.input_text = e.target.value;
-        this.datos = this.no_datos.filter((no_datos) => no_datos.name.toLowerCase().includes(this.input_text.toLowerCase()))
+        this.datos = this.no_datos.filter((no_datos) => 
+            no_datos.name.toLowerCase().includes(this.input_text.toLowerCase()) &&
+            (!this.option_house || no_datos.house === this.option_house)
+        );
     }
+
+    
 
     selectHouse(e){
         this.option_house = e.target.value;
-        this.datos = this.no_datos.filter((no_dato) => no_dato.house === this.option_house)
+        this.datos = this.no_datos.filter((no_dato) => 
+            no_dato.house === this.option_house && 
+            (this.input_text === '' || no_dato.name.toLowerCase().includes(this.input_text.toLowerCase()))
+        );
     }
+
+    static get styles() {
+        return css`
+        div {
+            border: 2px, black, solid;
+            border-radius: 20px;
+            margin-top: 2%;
+            padding: 4%;
+          }
+        .show_table {
+            justify-items: center;
+            margin-top: 50px;
+        }
+        img {
+            width: 100px;
+            border-radius: 50%;
+        }
+        table > thead {
+            background-color: #A6342E;
+            color: wheat;
+            text-align: center;
+            padding: 1%;
+        }
+        table > tbody {
+            text-align: center;
+        }
+        `;
+    } 
+    
 
     render(){
        return html`
-       <section ?hidden=${this.show_table}>
+       <section class="show_table" ?hidden=${this.show_table}>
             <div>
                 <input type="text" .value=${this.input_text} @input=${this.inputText} placeholder="Buscar por nombre">
                 <select @change=${this.selectHouse}>

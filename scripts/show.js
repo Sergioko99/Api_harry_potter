@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 export class ShowUser extends LitElement{
     constructor(){
         super();
@@ -14,6 +14,29 @@ export class ShowUser extends LitElement{
 
     }
 
+    static get styles() {
+        return css `
+            section {
+                justify-items: center;
+                margin-top: 50px;
+            }
+            div{
+            justify-items: center;
+                border: 2px, black, solid;
+                border-radius: 20px;
+                margin-top: 2%;
+                padding: 4%;
+            }
+            img {
+                width: 150px;
+                border-radius: 50%;
+            }
+            td {
+                font-size: 20px;
+            }
+        `
+    }
+
     update(changeProperties){
         super.update(changeProperties)
         if(changeProperties.has('id') && this.id){
@@ -23,10 +46,12 @@ export class ShowUser extends LitElement{
 
     render(){
        return html`
+       <section>
+        <div>
         ${this.dato.map((dato) => html`
                 ${dato.image !== ''
-                    ? html`<td><img src="${dato.image}" style="width: 100px; border-radius: 50%"></td>`
-                    : html`<td><img src ='../i/default.webp' style="width: 100px; border-radius: 50%"></td>`
+                    ? html`<td><img src="${dato.image}"></td>`
+                    : html`<td><img src ='../i/default.webp' ></td>`
                 }
                 <table>
                     <tbody>
@@ -61,6 +86,8 @@ export class ShowUser extends LitElement{
                     </tbody>
                 </table>
             `)}
+        </div>
+       </section>
        `
     }
 
