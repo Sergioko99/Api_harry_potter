@@ -44,10 +44,18 @@ export class ShowUser extends LitElement{
         }
     }
 
+    regresar(){
+        this.dispatchEvent(new CustomEvent('close-show', { 
+            bubbles: true,
+            composed: true,
+        }));
+    }
+
     render(){
        return html`
        <section>
         <div>
+        <button @click=${this.regresar}>Regresar</button>
         ${this.dato.map((dato) => html`
                 ${dato.image !== ''
                     ? html`<td><img src="${dato.image}"></td>`

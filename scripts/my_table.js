@@ -79,7 +79,11 @@ export class MyTable extends LitElement{
         }
         `;
     } 
-    
+
+    showTable(){
+        this.show_table = false;
+        this.show_user = true;
+    }
 
     render(){
        return html`
@@ -120,8 +124,14 @@ export class MyTable extends LitElement{
                 </table>
             </div>
        </section>
-       <show-user ?hidden=${this.show_user} .id=${this.id}></show-user>
+       <show-user @close-show=${this.mostrarTabla} ?hidden=${this.show_user} .id=${this.id}></show-user>
        `
+    }
+
+    mostrarTabla(){
+        this.show_table = false;
+        this.show_user = true;
+        this.requestUpdate();
     }
 
     clickInfo(e){
